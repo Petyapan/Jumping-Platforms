@@ -1,31 +1,38 @@
 using UnityEngine;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class MovingPlatform : MonoBehaviour
 {
-    public Transform pointA;
-    public Transform pointB;
-    public float speed = 2f;
+    [SerializeField]
+    private float speed = 2f;
 
-    private Vector3 nextPosition;
+    private Vector3 _nextPosition;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public Vector3 pointA; // World position of point A
+    public Vector3 pointB; // World position of point B
+
+    private void Start()
     {
-        nextPosition = pointB.position;
+        // Set the initial target position to pointB
+        _nextPosition = pointB;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, nextPosition, speed * Time.deltaTime);
+        // Move the platform toward the next position
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            _nextPosition,
+            speed * Time.deltaTime
+        );
 
-        if(transform.position == nextPosition)
+        // Switch target position when the platform reaches the current target
+        if (transform.position == _nextPosition)
         {
-            nextPosition = (nextPosition == pointA.position) ? pointB.position : pointA.position;
+            _nextPosition = (_nextPosition == pointA) ? pointB : pointA;
         }
     }
 
-    private void OnCollisionEntter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {

@@ -8,9 +8,7 @@ public class BreakingPlatform : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Player collided with platform");
             Invoke(nameof(BreakPlatform), breakDelay);
-            Debug.Log("Platform will break in " + breakDelay + " seconds");
         }
     }
 
