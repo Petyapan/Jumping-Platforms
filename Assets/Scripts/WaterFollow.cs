@@ -2,12 +2,10 @@ using UnityEngine;
 
 public class WaterFollow : MonoBehaviour
 {
-    [SerializeField] private Transform CameraMoveFast;
-    [SerializeField] private float verticalOffset = 0.5f;
-
-    // Update is called once per frame
-    void Update()
-    {
-        transform.position = new Vector3(CameraMoveFast.position.x, CameraMoveFast.position.y - verticalOffset, 0);
+    [SerializeField] private float riseSpeed = 0.5f;
+    
+    void Update() 
+    { 
+        transform.position += new Vector3(0, riseSpeed * Time.deltaTime, 0);
     }
 }
